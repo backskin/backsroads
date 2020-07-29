@@ -18,7 +18,7 @@ pub struct LineGenerator {
 }
 
 impl LineGenerator{
-    pub fn new(start_x: f64, start_y: f64, range: f64, direction: Direction) -> LineGenerator{
+    pub(crate) fn new(start_x: f64, start_y: f64, range: f64, direction: Direction) -> LineGenerator{
         LineGenerator{
             seed: 0,
             last_x_point: start_x,
@@ -37,7 +37,7 @@ impl GeoGenerator for LineGenerator {
     }
 }
 
-pub fn generate_car_movement(meta_generator: &mut dyn GeoGenerator, points_amount: u32) -> CarRawData {
+pub(crate) fn generate_car_movement(meta_generator: &mut dyn GeoGenerator, points_amount: u32) -> CarRawData {
 
     let some_dude = CarDriver::new("Dude".to_string());
 
@@ -51,7 +51,7 @@ pub fn generate_car_movement(meta_generator: &mut dyn GeoGenerator, points_amoun
     output
 }
 
-pub fn print_out_movement(raw_data: &CarRawData){
+pub(crate) fn print_out_movement(raw_data: &CarRawData){
 
     for (index, chunk) in raw_data.get_iterator().enumerate(){
         let (x, y) = &chunk.coordinate.get_coors();

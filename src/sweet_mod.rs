@@ -45,11 +45,10 @@ impl CarDriver{
             car_key: CarKey{ key_image: key },
         }
     }
-
 }
 
 pub struct Trip{
-    segment: TripSegment,
+    segments: Vec<TripSegment>,
 }
 
 pub struct MetaRoute{
@@ -96,7 +95,7 @@ impl CarRawData{
     pub fn remove(&mut self, position: &GeoPosition){
         let mut index = 0;
         for i in 0..self.gps_data.len() {
-            if self.gps_data.get(i) == position{
+            if self.gps_data.get(i).unwrap() == position{
                 index = i;
                 break;
             }
@@ -118,15 +117,35 @@ struct CarTrips{
     data: Vec<Trip>
 }
 
-pub struct TripAdvisor{
+impl CarTrips{
+
+    pub fn new(raw_points: Vec<GeoPosition>)->CarTrips{
+        let temp_vec: Vec<Trip> = Vec::new();
+
+        //TO-DO
+
+        for pos in raw_points{
+        }
+        CarTrips{ data: vec![] }
+    }
+}
+
+pub struct AdvisorSettings{
+    some_threshold: f64,
     trip_gap: Duration,
+}
+
+pub struct TripAdvisor{
+    settings: AdvisorSettings,
     car_trips: CarTrips,
 }
 
 impl TripAdvisor{
 
-    fn new(raw_data: &CarRawData) -> TripAdvisor {
+    fn new(raw_data: CarRawData, settings: AdvisorSettings) -> TripAdvisor {
+        let trips: Vec<Trip> = Vec::new();
 
+        TripAdvisor{ settings, car_trips: CarTrips { data: vec![] } }
     }
 
     fn segments_cleaner(&self){
